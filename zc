@@ -1,0 +1,27 @@
+//zero crossing detection to measure frequency of AC INPUT
+//written  by : Muhammad Husni
+
+
+const int input = 7; // timer generated wave as input, given to Arduino
+
+//----variable declaration-------------
+int HighInput;       // store high time of wave
+int LowInput;        // store low time of wave
+float TotalInput;    // to store total time duration between high and low pulse
+float frequency;     
+
+void setup()
+{
+    pinMode(input,INPUT);
+    Serial.begin(9600);
+}
+void loop()
+{
+    HighInput = pulseIn(input,HIGH);
+    LowInput = pulseIn(input,LOW);
+    TotalInput = HighInput + LowInput; 
+    frequency=1000000/TotalInput/2;      
+    Serial.print(frequency);
+    Serial.println(" Hz");
+    delay(500);
+}
